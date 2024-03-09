@@ -1,1 +1,5 @@
 colorama
+matplotlib
+pandas
+plotly
+bokeh

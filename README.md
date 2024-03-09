@@ -8,4 +8,4 @@ Terminal Input: Just type your barcode data into the terminal as if scanning a b
 1) Plug in your Barcoder Scanner to your computer
 2) Run `python barcode_scanner.py` 
 3) Scan a barcoder with scanner
-4) Check `outputs` dir for Data stored from scan
+4) Check `checkout-items` dir for Data stored from scan

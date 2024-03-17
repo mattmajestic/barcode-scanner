@@ -39,7 +39,6 @@ try:
                 # Print the product information in a more structured way
                 for item in product_info.get('items', []):
                     print(Fore.GREEN + Style.BRIGHT + f"Product Title: {item.get('title')}")
-                    print(Fore.GREEN + Style.BRIGHT + f"Product Description: {item.get('description')}")
                     print(Fore.GREEN + Style.BRIGHT + f"Product Brand: {item.get('brand')}")
                     print(Fore.GREEN + Style.BRIGHT + f"Product Model: {item.get('model')}")
                     print(Fore.GREEN + Style.BRIGHT + f"Product Category: {item.get('category')}")

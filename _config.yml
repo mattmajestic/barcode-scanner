@@ -1,0 +1,3 @@
+title: Barcode Data Reader
+description: A simple tool that captures and stores barcode data via terminal input with Python or Go.
+theme: jekyll-theme-leap-day

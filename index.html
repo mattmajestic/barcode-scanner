@@ -1,0 +1,56 @@
+
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 70%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Full-Stack Checkout Analysis 🛒</h1>
+        <p>This project provides a full-stack overview of a checkout process at a grocery store. It involves a barcode scanner that is connected to your local machine. When you scan a product's barcode, the scanner sends the UPC (Universal Product Code) to your computer. A script then takes this UPC, makes a request to the UPCitemdb API to get the product information, and saves this information to a JSON file in the "checkout-items" directory.</p>
+        <p>This HTML page reads those JSON files, extracts the product information, and displays it in the following data table:</p>
+        <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Title</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SUGAR FREE CHEWING GUM</td>
+      <td>The PUR Company</td>
+      <td>96378</td>
+      <td>Health &amp; Beauty &gt; Personal Care &gt; Oral Care &gt; Gum Stimulators</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+</body>
+</html>

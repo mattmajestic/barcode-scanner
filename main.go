@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
@@ -16,6 +17,7 @@ type Product struct {
 	Brand    string `json:"brand"`
 	Model    string `json:"model"`
 	Category string `json:"category"`
+	Price    string `json:"price"`
 }
 
 type Response struct {
@@ -23,50 +25,39 @@ type Response struct {
 }
 
 func main() {
-	outputDir := "checkout-items"
-	outputFile := "scanned_barcodes.txt"
-	fullPath := outputDir + "/" + outputFile
-
-	// Ensure the output directory exists
-	os.MkdirAll(outputDir, os.ModePerm)
-
-	fmt.Println("Listening for barcode scans. Press CTRL+C to exit.")
+	fmt.Println("\033[1;36mListening for barcode scans. Press CTRL+C to exit.\033[0m")
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		barcodeData := scanner.Text()
 
 		// Print the received barcode
-		fmt.Printf("Received barcode: %s\n", barcodeData)
-
-		// Write the scanned barcode data to the file
-		f, _ := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-		f.WriteString(barcodeData + "\n")
-		f.Close()
+		fmt.Printf("\033[1;32mReceived barcode: %s\033[0m\n", barcodeData)
 
 		// Make a GET request to the UPCitemdb API to get the product information
-		resp, _ := http.Get(fmt.Sprintf("https://api.upcitemdb.com/prod/trial/lookup?upc=%s", barcodeData))
+		resp, err := http.Get(fmt.Sprintf("https://api.upcitemdb.com/prod/trial/lookup?upc=%s", barcodeData))
+		if err != nil {
+			log.Fatalf("Error making GET request: %v", err)
+		}
 
-		// Check if the request was successful
-		if resp.StatusCode == 200 {
-			// Parse the JSON response
-			body, _ := ioutil.ReadAll(resp.Body)
-			var productInfo Response
-			json.Unmarshal(body, &productInfo)
+		// Parse the JSON response
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatalf("Error reading response body: %v", err)
+		}
+		var productInfo Response
+		err = json.Unmarshal(body, &productInfo)
+		if err != nil {
+			log.Fatalf("Error unmarshalling JSON: %v", err)
+		}
 
-			// Print the product information in a more structured way
-			for _, item := range productInfo.Items {
-				fmt.Printf("Product Title: %s\n", item.Title)
-				fmt.Printf("Product Brand: %s\n", item.Brand)
-				fmt.Printf("Product Model: %s\n", item.Model)
-				fmt.Printf("Product Category: %s\n", item.Category)
-			}
-
-			// Save the UPC and associated JSON data to a file
-			jsonFile, _ := json.MarshalIndent(productInfo, "", " ")
-			ioutil.WriteFile(fmt.Sprintf("%s/%s-description.json", outputDir, barcodeData), jsonFile, 0644)
-		} else {
-			fmt.Printf("Failed to get product info for UPC %s\n", barcodeData)
+		// Print the product information in a more structured way
+		for _, item := range productInfo.Items {
+			fmt.Printf("\033[1;34mProduct Title: %s\033[0m\n", item.Title)
+			fmt.Printf("\033[1;34mProduct Brand: %s\033[0m\n", item.Brand)
+			fmt.Printf("\033[1;34mProduct Model: %s\033[0m\n", item.Model)
+			fmt.Printf("\033[1;34mProduct Category: %s\033[0m\n", item.Category)
+			fmt.Printf("\033[1;34mProduct Price: %s\033[0m\n", item.Price)
 		}
 	}
 }

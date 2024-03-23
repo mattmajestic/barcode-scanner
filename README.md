@@ -16,3 +16,20 @@ Terminal Input: Just type your barcode data into the terminal as if scanning a b
 2) Run `go run main.go`
 3) Scan a barcode with scanner
 4) Check `checkout-items` dir for Data stored from scan
+
+
+### Architecture
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant GoProgram as Go program
+    participant API as UPCitemdb API
+    participant PythonScript as Python script
+    User->>GoProgram: Run Go program
+    GoProgram->>API: Request product data
+    API-->>GoProgram: Return product data
+    GoProgram->>User: Display product data
+    User->>PythonScript: Run Python script
+    PythonScript->>User: Generate HTML page
+```

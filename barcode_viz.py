@@ -74,5 +74,5 @@ html = f"""
 """
 
 # Write the HTML to a file
-with open("index.html", "w", encoding='utf-8') as file:
+with open("inventory.html", "w", encoding='utf-8') as file:
     file.write(html)

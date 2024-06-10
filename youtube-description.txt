@@ -1,0 +1,14 @@
+Barcode Scanner wit Go & Neon Postgres 🎣
+
+👉 Neon Free Database Sign Up: https://console.neon.tech/signup
+👉 Neon Tech: https://neon.tech
+👉 Github Repo: https://github.com/mattmajestic/barcode-scanner
+
+0:00 Intro
+0:18 Overview
+0:14 Review & Run main.go
+2:20 Scan Items Barcodes
+3:12 Sponsor: Neon Database
+3:44 Display HTML
+4:32 Like & Subscribe
+
